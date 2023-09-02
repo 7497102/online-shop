@@ -1,0 +1,35 @@
+{% load store_tags %}
+{% get_categories as categories %}
+<!--categories = get_categories()-->
+<ul class="header_nav-menu d-flex justify-content-center flex-wrap text-center">
+    {% for category in categories %}
+    <li class="header_nav-item">
+        <a class="header_nav-link " href="{{ category.get_absolute_url }}">
+            {{ category.title }}
+        </a>
+    </li>
+    {% endfor %}
+    <li class="header_nav-item mt-3 mt-lg-0">
+        <a class="header_nav-link " href="{% url 'cart' %}">
+            MY CART
+        </a>
+    </li>
+    {% if request.user.is_authenticated %}
+    <li class="header_nav-item mt-3 mt-lg-0">
+        <a class="header_nav-link " href="{% url 'logout' %}">
+            LOG OUT
+        </a>
+    </li>
+    {% else %}
+    <li class="header_nav-item mt-3 mt-lg-0">
+        <a class="header_nav-link " href="{% url 'register' %}">
+            SIGN UP
+        </a>
+    </li>
+    <li class="header_nav-item mt-3 mt-lg-0">
+        <a class="header_nav-link " href="{% url 'login' %}">
+            SIGN IN
+        </a>
+    </li>
+    {% endif %}
+</ul>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load store_tags %}
+
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+<main>
+    <!-- BLOCKS GUARANTEES START -->
+    {% include 'store/components/_guarantees.html' %}
+    <!-- BLOCKS GUARANTEES START -->
+
+    {% get_categories as categories %}
+    {% for category in categories %}
+    <section class="products-section">
+        <!-- SECTION CHAIN COLLECTION START -->
+        {% for subcategory in category.subcategories.all %}
+        <h2 class="main_title text-center">{{ subcategory.title }}</h2>
+        <div class="container">
+            <div class="row">
+                {% for product in subcategory.products.all %}
+                {% include 'store/components/_product_card.html' %}
+
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <!-- SECTION CHAIN COLLECTION END -->
+    </section>
+    {% endfor %}
+
+    <!-- SLIDER BLOCK START -->
+    {% include 'store/components/_owl_carousel.html' %}
+
+    <!-- SLIDER BLOCK END -->
+
+    <!-- BLOCK EMAIL FORM START -->
+    {% include 'store/components/_email_form.html' %}
+    <!-- BLOCK EMAIL FORM END -->
+</main>
+{% endblock main %}
